@@ -1,0 +1,54 @@
+# Esto es un comentario
+# Primer caso
+>gramatica >> LL1:True
+
+E : [ E ]
+E : num E2
+E2 : , num
+E2 : lambda
+
+
+>tests
+
+num $ >> True
+num , num $ >> True
+[ [ num ] ] $ >> True
+[ num $ >> False
+$ >> False
+
+# Con recursion a izquierda
+>gramatica >> LL1:False
+
+E : E + E
+E : num
+
+# Con Factor comun a izquierda
+>gramatica >> LL1:False
+
+E : num + num
+E : num
+
+>tests
+
+num + num + num $ >> True
+num + $ >> False
+
+# Otra gramatica mas larga
+>gramatica >> LL1:True
+
+S : ( L )
+S : a
+L : S L2
+L2 : , S L2
+L2 : lambda
+
+>tests
+
+a $ >> True
+a , a $ >> False
+( a , a ) $ >> True
+( a ) , a $ >> False
+( a $ >> False
+( ( ( a ) ) ) $ >> True
+
+
